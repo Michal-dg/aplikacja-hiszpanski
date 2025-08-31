@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Palabra Clave: Hiszpański od Podstaw</title>
+    <title>Palabra Clave: Domina el Español</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,12 +11,12 @@
     <script src="slowka_baza_es.js"></script>
     
     <!-- PWA Manifest & Mobile App Meta Tags -->
-    <link rel="manifest" id="manifest">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0284c7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Palabra Clave">
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiI+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMCAwaDE5MnYxOTJIMHoiLz48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgeD0iMjYiIHk9IjI2IiBmaWxsPSIjMDM2OTcxIiByeD0iMzAiLz48cGF0aCBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMTIiIGQ9Ik02NS42IDEyMi44VjY5LjJNNjUuNiA5NmgzMC44bDI0LjQgMjYuOFY2OS4yIi8+PC9nPjwvc3ZnPg==">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
 
     <style>
         body {
@@ -36,6 +36,7 @@
             height: 100%;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden; /* Poprawka dla Safari/iOS */
+            transform: translateZ(0); /* Dodatkowa poprawka dla iOS */
         }
         .card-face-back {
             transform: rotateY(180deg);
@@ -69,10 +70,10 @@
     <div id="app" class="w-full max-w-md mx-auto p-4 sm:p-6">
         <header class="text-center mb-4">
             <div id="header-image-container" class="relative w-full h-24 bg-slate-200 rounded-lg mb-4 overflow-hidden group">
-                <img id="header-image" src="" alt="Nagłówek" class="w-full h-full object-cover">
+                <img id="header-image" src="" alt="Encabezado" class="w-full h-full object-cover">
                 <button id="upload-header-btn" class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                    <span class="ml-2">Zmień zdjęcie</span>
+                    <span class="ml-2">Cambiar foto</span>
                 </button>
             </div>
             <h1 class="text-3xl sm:text-4xl font-bold text-sky-600">Palabra Clave</h1>
@@ -80,19 +81,19 @@
         </header>
 
         <nav class="relative flex justify-center items-center space-x-2 sm:space-x-4 mb-6 border-b pb-4">
-            <button id="show-decks-btn" title="Bazy danych słówek" class="p-3 bg-slate-100 rounded-full text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-colors">
+            <button id="show-decks-btn" title="Bases de datos" class="p-3 bg-slate-100 rounded-full text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-colors">
                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2z"></path><path d="M20 12v4H4v-4"></path><path d="M4 8h16"></path></svg>
             </button>
-            <button id="show-learned-words-btn" title="Nauczone słówka" class="p-3 bg-slate-100 rounded-full text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-colors">
+            <button id="show-learned-words-btn" title="Palabras aprendidas" class="p-3 bg-slate-100 rounded-full text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
             </button>
-            <button id="show-stats-btn" title="Wykres postępów" class="p-3 bg-slate-100 rounded-full text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-colors">
+            <button id="show-stats-btn" title="Gráfico de progreso" class="p-3 bg-slate-100 rounded-full text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
             </button>
-             <button id="show-stories-btn" title="Biblioteka opowiadań" class="p-3 bg-slate-100 rounded-full text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-colors">
+             <button id="show-stories-btn" title="Biblioteca de historias" class="p-3 bg-slate-100 rounded-full text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
             </button>
-            <button id="upload-global-bg-btn" title="Zmień tło fiszek" class="p-3 bg-slate-100 rounded-full text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-colors">
+            <button id="upload-global-bg-btn" title="Cambiar fondo de las fichas" class="p-3 bg-slate-100 rounded-full text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
             </button>
             <div id="learned-counter-container" class="absolute right-0 top-1/2 -translate-y-1/2 flex items-center space-x-2 bg-green-100 text-green-700 font-bold px-3 py-1.5 rounded-full text-sm">
@@ -102,24 +103,24 @@
         </nav>
 
         <main id="main-content">
-             <div class="text-center mb-4"><p class="text-sm text-slate-500">Aktywna baza: <strong id="active-deck-name" class="text-sky-600"></strong></p></div>
+             <div class="text-center mb-4"><p class="text-sm text-slate-500">Base activa: <strong id="active-deck-name" class="text-sky-600"></strong></p></div>
             <!-- Loading State -->
             <div id="loading-state" class="text-center p-8">
-                <p class="text-slate-500">Ładowanie aplikacji i bazy danych...</p>
+                <p class="text-slate-500">Cargando aplicación y base de datos...</p>
             </div>
             <!-- Session Summary State -->
             <div id="summary-state" class="hidden text-center bg-white p-8 rounded-2xl shadow-lg">
-                <h2 class="text-2xl font-bold mb-4">Świetna robota!</h2>
-                <p class="text-slate-600 mb-6">Ukończyłeś dzisiejszą sesję. Wróć jutro po więcej powtórek.</p>
+                <h2 class="text-2xl font-bold mb-4">¡Excelente trabajo!</h2>
+                <p class="text-slate-600 mb-6">Has completado la sesión de hoy. Vuelve mañana para más repasos.</p>
                 <button id="start-new-session-early" class="w-full bg-sky-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-sky-600 transition-colors">
-                    Chcę uczyć się dalej
+                    Quiero seguir aprendiendo
                 </button>
             </div>
             <!-- Learning State -->
             <div id="learning-state" class="hidden">
                 <div class="flex justify-between items-center mb-4 text-sm">
-                    <div class="bg-sky-100 text-sky-700 font-semibold px-3 py-1 rounded-full">Nowe: <span id="new-count">0</span></div>
-                    <div class="bg-amber-100 text-amber-700 font-semibold px-3 py-1 rounded-full">Do powtórki: <span id="review-count">0</span></div>
+                    <div class="bg-sky-100 text-sky-700 font-semibold px-3 py-1 rounded-full">Nuevas: <span id="new-count">0</span></div>
+                    <div class="bg-amber-100 text-amber-700 font-semibold px-3 py-1 rounded-full">Para repasar: <span id="review-count">0</span></div>
                 </div>
                 <div id="flashcard-container" class="perspective-1000">
                     <div id="flashcard" class="card w-full h-[320px] sm:h-[350px] relative">
@@ -132,19 +133,19 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
                                 </button>
                                 <div class="flex-grow flex flex-col items-center justify-center">
-                                    <p class="text-slate-500 text-sm mb-4">Słówko <span id="card-rank">#1</span></p>
+                                    <p class="text-slate-500 text-sm mb-4">Palabra <span id="card-rank">#1</span></p>
                                     <p id="card-spanish" class="text-4xl sm:text-5xl font-bold"></p>
                                 </div>
                                 <button id="show-answer-btn" class="bg-slate-200 text-slate-700 font-semibold py-2 px-6 rounded-lg hover:bg-slate-300 transition-colors">
-                                    Pokaż odpowiedź
+                                    Mostrar respuesta
                                 </button>
                             </div>
                         </div>
                         <!-- Back of the card -->
                         <div class="card-face card-face-back flex flex-col justify-between bg-sky-500 text-white rounded-2xl shadow-lg p-4 text-center">
                             <div class="relative w-full h-32">
-                                <img id="card-image" src="" alt="Obrazek pomocniczy" class="w-full h-full object-cover rounded-lg bg-sky-400">
-                                <button id="add-image-btn" title="Dodaj/Zmień obrazek" class="absolute bottom-1 right-1 bg-white/50 hover:bg-white/80 text-sky-800 p-1 rounded-full backdrop-blur-sm transition">
+                                <img id="card-image" src="" alt="Imagen de ayuda" class="w-full h-full object-cover rounded-lg bg-sky-400">
+                                <button id="add-image-btn" title="Añadir/Cambiar imagen" class="absolute bottom-1 right-1 bg-white/50 hover:bg-white/80 text-sky-800 p-1 rounded-full backdrop-blur-sm transition">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                                 </button>
                             </div>
@@ -169,7 +170,7 @@
         </main>
         
         <footer class="text-center mt-6">
-             <button id="reset-progress" class="text-xs text-slate-400 hover:text-red-500 hover:underline">Zresetuj postęp</button>
+             <button id="reset-progress" class="text-xs text-slate-400 hover:text-red-500 hover:underline">Reiniciar progreso</button>
         </footer>
     </div>
 
@@ -177,27 +178,27 @@
     <div id="decks-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
         <div class="modal-content bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col transform scale-95">
             <header class="flex justify-between items-center p-4 border-b">
-                <h2 class="text-xl font-bold">Bazy Danych Słówek</h2>
+                <h2 class="text-xl font-bold">Bases de Datos</h2>
                 <button class="close-modal-btn p-2 text-2xl text-slate-400 hover:text-slate-800">&times;</button>
             </header>
             <div id="decks-list" class="p-4 overflow-y-auto"></div>
             <div class="p-4 border-t">
                  <form id="add-deck-form" class="flex gap-2">
-                    <input type="text" id="new-deck-name" placeholder="Nazwa nowej bazy..." class="flex-grow block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" required>
-                    <button type="submit" class="bg-sky-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-sky-600 transition-colors text-sm">Utwórz</button>
+                    <input type="text" id="new-deck-name" placeholder="Nombre de la nueva base..." class="flex-grow block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" required>
+                    <button type="submit" class="bg-sky-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-sky-600 transition-colors text-sm">Crear</button>
                  </form>
             </div>
              <div id="deck-details-view" class="p-4 border-t hidden">
-                 <h3 class="font-bold mb-2">Słówka w bazie: <span id="deck-details-name" class="text-sky-600"></span></h3>
+                 <h3 class="font-bold mb-2">Palabras en la base: <span id="deck-details-name" class="text-sky-600"></span></h3>
                  <div id="deck-details-words" class="max-h-48 overflow-y-auto border rounded-lg p-2 bg-slate-50"></div>
-                 <button id="open-add-word-modal-btn" class="w-full mt-4 bg-green-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-600 transition-colors text-sm">Dodaj słówka do tej bazy</button>
+                 <button id="open-add-word-modal-btn" class="w-full mt-4 bg-green-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-600 transition-colors text-sm">Añadir palabras a esta base</button>
              </div>
         </div>
     </div>
     <div id="learned-words-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
         <div class="modal-content bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col transform scale-95">
             <header class="flex justify-between items-center p-4 border-b">
-                <h2 class="text-xl font-bold">Nauczone słówka (<span id="learned-words-count">0</span>)</h2>
+                <h2 class="text-xl font-bold">Palabras aprendidas (<span id="learned-words-count">0</span>)</h2>
                 <button class="close-modal-btn p-2 text-2xl text-slate-400 hover:text-slate-800">&times;</button>
             </header>
             <div id="learned-words-list" class="p-4 overflow-y-auto"></div>
@@ -206,7 +207,7 @@
     <div id="stats-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
         <div class="modal-content bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col transform scale-95">
             <header class="flex justify-between items-center p-4 border-b">
-                <h2 class="text-xl font-bold">Postępy w nauce</h2>
+                <h2 class="text-xl font-bold">Progreso del aprendizaje</h2>
                 <button class="close-modal-btn p-2 text-2xl text-slate-400 hover:text-slate-800">&times;</button>
             </header>
             <div class="p-4">
@@ -217,14 +218,14 @@
     <div id="stories-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
         <div class="modal-content bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col transform scale-95">
             <header class="flex justify-between items-center p-4 border-b">
-                <h2 class="text-xl font-bold">Biblioteka Opowiadań</h2>
-                <button id="add-story-btn" class="bg-sky-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-sky-600 transition-colors text-sm">Dodaj nową</button>
+                <h2 class="text-xl font-bold">Biblioteca de Historias</h2>
+                <button id="add-story-btn" class="bg-sky-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-sky-600 transition-colors text-sm">Añadir nueva</button>
             </header>
             <div id="stories-list" class="p-4 overflow-y-auto flex-grow">
                 <!-- Story list will be populated here -->
             </div>
             <footer class="p-2 border-t">
-                 <button class="close-modal-btn w-full text-slate-500 hover:text-slate-800 p-2">Zamknij</button>
+                 <button class="close-modal-btn w-full text-slate-500 hover:text-slate-800 p-2">Cerrar</button>
             </footer>
         </div>
     </div>
@@ -237,10 +238,10 @@
             <div id="story-viewer-content" class="p-6 overflow-y-auto flex-grow leading-relaxed bg-white/70 text-slate-900 backdrop-blur-none"></div>
             <footer class="p-4 border-t flex justify-between items-center bg-white/70 backdrop-blur-none rounded-b-2xl">
                 <div class="flex items-center space-x-2">
-                    <button id="upload-story-bg-btn" class="bg-slate-200 text-slate-700 font-semibold py-2 px-3 rounded-lg hover:bg-slate-300 transition-colors text-sm">Tło</button>
+                    <button id="upload-story-bg-btn" class="bg-slate-200 text-slate-700 font-semibold py-2 px-3 rounded-lg hover:bg-slate-300 transition-colors text-sm">Fondo</button>
                 </div>
                  <div class="flex items-center space-x-2">
-                    <label for="speed-slider" class="text-sm text-slate-600">Szybkość:</label>
+                    <label for="speed-slider" class="text-sm text-slate-600">Velocidad:</label>
                     <input type="range" id="speed-slider" min="0.5" max="1" value="1" step="0.05" class="w-24">
                 </div>
                  <button id="listen-full-story-btn" class="bg-sky-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-600 transition-colors flex items-center space-x-2">
@@ -253,16 +254,16 @@
      <div id="add-word-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
         <div class="modal-content bg-white rounded-2xl shadow-xl w-full max-w-lg flex flex-col transform scale-95">
             <header class="flex justify-between items-center p-4 border-b">
-                <h2 class="text-xl font-bold">Dodaj słówka do bazy: <span id="add-word-deck-name" class="text-sky-600"></span></h2>
+                <h2 class="text-xl font-bold">Añadir palabras a la base: <span id="add-word-deck-name" class="text-sky-600"></span></h2>
                 <button class="close-modal-btn p-2 text-2xl text-slate-400 hover:text-slate-800">&times;</button>
             </header>
             <form id="add-word-form" class="p-6 space-y-4">
                  <div>
-                    <label for="bulk-words-input" class="block text-sm font-medium text-slate-700">Wklej listę słówek</label>
-                    <p class="text-xs text-slate-500 mb-2">Każde słówko w nowej linii. Użyj średników (;) do oddzielenia części: <code class="bg-slate-100 p-1 rounded">hiszpański;polski;zdanie hiszpańskie;zdanie polskie</code></p>
+                    <label for="bulk-words-input" class="block text-sm font-medium text-slate-700">Pega la lista de palabras</label>
+                    <p class="text-xs text-slate-500 mb-2">Cada palabra en una nueva línea. Usa punto y coma (;) para separar las partes: <code class="bg-slate-100 p-1 rounded">español;polaco;frase en español;frase en polaco</code></p>
                     <textarea id="bulk-words-input" required class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 h-48" placeholder="de;z, od;Soy de Polonia.;Jestem z Polski.&#10;la;artículo femenino;La casa es grande.;Dom jest duży."></textarea>
                 </div>
-                <button type="submit" class="w-full bg-sky-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-sky-600 transition-colors">Zapisz słówka</button>
+                <button type="submit" class="w-full bg-sky-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-sky-600 transition-colors">Guardar palabras</button>
             </form>
         </div>
     </div>
@@ -505,7 +506,7 @@
                     deckEl.className = `flex justify-between items-center p-3 hover:bg-slate-100 rounded-lg cursor-pointer ${deck.id === activeDeckId ? 'bg-sky-100' : ''}`;
                     deckEl.innerHTML = `
                         <div class="deck-name-container grow pr-2">
-                            <p class="font-bold">${deck.name} <span class="font-normal text-slate-500 text-sm">(${count} słówek)</span></p>
+                            <p class="font-bold">${deck.name} <span class="font-normal text-slate-500 text-sm">(${count} palabras)</span></p>
                         </div>
                         <div>
                             <button class="edit-deck-btn text-slate-500 hover:text-sky-600 p-1">✏️</button>
@@ -571,11 +572,11 @@
                 
                 deckDetailsWords.innerHTML = wordsInDeck.length > 0
                     ? wordsInDeck.map(w => `<div class="text-sm py-1">${w.spanish} - ${w.polish}</div>`).join('')
-                    : '<p class="text-slate-500 text-sm">Brak słówek w tej bazie.</p>';
+                    : '<p class="text-slate-500 text-sm">No hay palabras en esta base de datos.</p>';
             }
 
              async function deleteDeck(deck) {
-                 if (confirm(`Czy na pewno chcesz usunąć bazę "${deck.name}" i wszystkie jej słówka? Tej operacji nie można cofnąć.`)) {
+                 if (confirm(`¿Estás seguro de que quieres eliminar la base de datos "${deck.name}" y todas sus palabras? Esta operación es irreversible.`)) {
                     const wordTx = db.transaction('words', 'readwrite');
                     const wordStore = wordTx.objectStore('words');
                     const index = wordStore.index('deckId');
@@ -721,7 +722,7 @@
                 if (!activeDeckId) {
                     learningState.classList.add('hidden');
                     summaryState.classList.add('hidden');
-                    loadingState.innerHTML = '<p class="text-center text-slate-500 p-8">Wybierz lub stwórz bazę danych, aby rozpocząć naukę.</p>';
+                    loadingState.innerHTML = '<p class="text-center text-slate-500 p-8">Selecciona o crea una base de datos para empezar a aprender.</p>';
                     loadingState.classList.remove('hidden');
                     return;
                 }
@@ -770,7 +771,7 @@
                 const allWords = await idbRequest(store.getAll());
                 const learned = allWords.filter(w => w.learnedDate).sort((a,b) => new Date(a.learnedDate) - new Date(b.learnedDate));
                 if (learned.length === 0) {
-                    learnedWordsList.innerHTML = `<p class="text-slate-500 text-center p-4">Jeszcze nie nauczyłeś się żadnego słówka. Ucz się dalej!</p>`;
+                    learnedWordsList.innerHTML = `<p class="text-slate-500 text-center p-4">Aún no has aprendido ninguna palabra. ¡Sigue aprendiendo!</p>`;
                 } else {
                     learned.forEach(word => { learnedWordsList.innerHTML += `<div class="py-2 border-b"><span class="font-bold w-24 inline-block">${word.spanish}</span><span>${word.polish}</span></div>`; });
                 }
@@ -792,7 +793,7 @@
                 });
                 if(statsChart) statsChart.destroy();
                 statsChart = new Chart(statsChartCanvas, {
-                    type: 'bar', data: { labels: sortedDays, datasets: [{ label: 'Nauczone słówka', data: sortedDays.map(day => learnedByDay[day]), backgroundColor: 'rgba(59, 130, 246, 0.5)', borderColor: 'rgba(59, 130, 246, 1)', borderWidth: 1 }] },
+                    type: 'bar', data: { labels: sortedDays, datasets: [{ label: 'Palabras aprendidas', data: sortedDays.map(day => learnedByDay[day]), backgroundColor: 'rgba(59, 130, 246, 0.5)', borderColor: 'rgba(59, 130, 246, 1)', borderWidth: 1 }] },
                     options: { scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }, plugins: { legend: { display: false } } }
                 });
                 openModal(statsModal);
@@ -802,7 +803,7 @@
                 const stories = await idbRequest(store.getAll());
                 storiesListEl.innerHTML = '';
                 if(stories.length === 0) {
-                    storiesListEl.innerHTML = `<p class="text-center text-slate-500 p-8">Twoja biblioteka jest pusta. Dodaj swoją pierwszą historię z pliku .txt.</p>`;
+                    storiesListEl.innerHTML = `<p class="text-center text-slate-500 p-8">Tu biblioteca está vacía. Añade tu primera historia desde un archivo .txt.</p>`;
                 } else {
                     stories.forEach(story => {
                         const storyEl = document.createElement('div');
@@ -820,7 +821,7 @@
                         });
                         storyEl.querySelector('.delete-story-btn').addEventListener('click', async (e) => {
                             e.stopPropagation();
-                            if(confirm(`Czy na pewno chcesz usunąć "${story.title}"?`)) {
+                            if(confirm(`¿Estás seguro de que quieres eliminar "${story.title}"?`)) {
                                 const store = getTransaction('user_stories', 'readwrite');
                                 await idbRequest(store.delete(story.id));
                                 showStoriesBtn.click(); // Refresh list
@@ -838,7 +839,7 @@
                     addWordDeckName.textContent = selectedDeck.name;
                     closeModal(decksModal);
                     openModal(addWordModal);
-                 } else { alert("Najpierw wybierz bazę danych."); }
+                 } else { alert("Primero, selecciona una base de datos."); }
             });
             addStoryBtn.addEventListener('click', () => storyUploadInput.click());
             
@@ -974,9 +975,9 @@
                         deckNameInput.value = '';
                     } catch (error) {
                          if (error.name === 'ConstraintError') {
-                            alert('Baza danych o tej nazwie już istnieje.');
+                            alert('Ya existe una base de datos con ese nombre.');
                         } else {
-                            alert('Nie udało się dodać nowej bazy danych.');
+                            alert('No se pudo añadir la nueva base de datos.');
                         }
                     }
                 }
@@ -991,7 +992,7 @@
                 for (const line of lines) {
                     const parts = line.split(';').map(part => part.trim());
                     if (parts.length !== 4) {
-                        alert(`Nieprawidłowy format w linii: "${line}".`);
+                        alert(`Formato incorrecto en la línea: "${line}".`);
                         return;
                     }
                     const [spanish, polish, example_es, example_pl] = parts;
@@ -1007,7 +1008,7 @@
                     closeModal(addWordModal);
                     await loadWordsForActiveDeck();
                     startSession();
-                    alert(`Dodano ${newWords.length} słówek!`);
+                    alert(`¡Se han añadido ${newWords.length} palabras!`);
                 }
             });
             showAnswerBtn.addEventListener('click', () => {
@@ -1036,7 +1037,7 @@
                  startSession();
             });
             resetProgressBtn.addEventListener('click', async () => {
-                if (confirm('Czy na pewno chcesz zresetować cały postęp? Ta operacja jest nieodwracalna.')) {
+                if (confirm('¿Estás seguro de que quieres reiniciar todo tu progreso? Esta operación es irreversible.')) {
                     await db.close();
                     await idbRequest(indexedDB.deleteDatabase(dbName));
                     words = []; headerImageEl.src = ''; globalFlashcardBg = null;
